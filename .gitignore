@@ -1,0 +1,28 @@
+# ===== Build output =====
+target/
+build/
+out/
+
+# ===== Test reports =====
+reports/
+test-output/
+allure-results/
+allure-report/
+cucumber-reports/
+
+# ===== Logs =====
+*.log
+logs/
+
+# ===== IDE files =====
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.classpath
+.project
+.settings/
+
+# ===== OS files =====
+.DS_Store/
