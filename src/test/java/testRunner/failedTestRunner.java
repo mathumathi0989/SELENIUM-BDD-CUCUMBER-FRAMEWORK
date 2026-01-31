@@ -1,12 +1,10 @@
 package testRunner;
 
-import org.testng.annotations.DataProvider;
-
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
 
 @CucumberOptions(
-	    features = "src/test/resources/features",
+		features = {"@target/failed_scenarios.txt"},
 	    glue = {"stepDefinition"},
 	    plugin = {"pretty", "html:target/cucumber.html",
 		        "json:target/cucumber.json",
@@ -20,15 +18,10 @@ import io.cucumber.testng.CucumberOptions;
 	 
 	)
 
-public class TestRunner  extends AbstractTestNGCucumberTests  {
 
-		
-	    @Override
-	    @DataProvider(parallel = true)
-	    public Object[][] scenarios() {
-	        return super.scenarios();
-	    }
-	 
 
-			   
+public class failedTestRunner  extends AbstractTestNGCucumberTests  {
+
+
+				   
 }	

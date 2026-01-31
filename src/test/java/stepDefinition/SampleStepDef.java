@@ -1,10 +1,15 @@
 package stepDefinition;
 
+import org.testng.Assert;
+
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import pageObjects.loginPage;
 
-public class SampleStepDef {
+public class SampleStepDef extends loginPage{
+	
+	
 
 	
 	@Given("I want to write a step with precondition")
@@ -18,8 +23,11 @@ public class SampleStepDef {
 	}
 	
 	@Then("I validate the outcomes")
-	public void i_validate_the_outcomes() {
+	public void i_validate_the_outcomes() throws InterruptedException {
 	  System.out.println("sample step completed");
+	  Thread.sleep(2000);
+	
+	  Assert.assertTrue(true);
 	}
 	
 }

@@ -4,6 +4,7 @@ import java.util.ResourceBundle;
 
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.testng.Reporter;
 
 import driverSetup.DriverFactory;
 import io.cucumber.java.After;
@@ -27,16 +28,19 @@ public class Hooks {
     public void setUp(Scenario scenario) {
         LoggerLoad.info("Starting scenario: " + scenario.getName());
         
-        String browser = System.getProperty("browser", config.getString("browser"));
-        DriverFactory.setBrowser(browser); // to tun mvn test -Dbrowser=firefox
+        String browser = getBrowserFromAnySources();
+ //       String browser = System.getProperty("browser", config.getString("browser"));
+        DriverFactory.setBrowser(browser); 
         
-        DriverFactory.initializeDriver(); // Initialize driver in a thread-safe manner
+        DriverFactory.initializeDriver(); 
+        context.launchUrl();
+        
     }
     
     @After
     public void tearDown() {
         LoggerLoad.info("Closing WebDriver...");
-        DriverFactory.quitDriver(); // Ensure driver is quit properly for parallel tests
+        DriverFactory.quitDriver(); 
     }
     
     
@@ -48,7 +52,42 @@ public class Hooks {
             scenario.attach(screenshot, "image/png", "Failure Screenshot");
         }
     }
+    
+    private String getBrowserFromAnySources() {
+    	//From Command line
+         String browser = System.getProperty("browser");
+         
+         //Next try from testng.xml
+         if (browser == null || browser.trim().isEmpty()) {
+             browser = getTestNGParameter("browser");
+         }
+        
+        //Next try from config.properties
+        if (browser == null || browser.trim().isEmpty()) {
+               browser = config.getString("browser");
+            }
+        
+        // Or else set with default value
+        if (browser == null || browser.trim().isEmpty()) {
+            browser = "chrome";
+            LoggerLoad.info("Using default browser: chrome");
+        }
+        
+        return browser.trim().toLowerCase();
+    }
 	
+    
+    private String getTestNGParameter(String paramName) {
+        try {
+           return Reporter.getCurrentTestResult()
+                .getTestContext()
+                .getCurrentXmlTest()
+                .getParameter(paramName);
+        } catch (Exception e) {
+           LoggerLoad.debug("Could not read TestNG parameter: " + paramName);
+            return null;
+        }
+    }
 	
 	
 }

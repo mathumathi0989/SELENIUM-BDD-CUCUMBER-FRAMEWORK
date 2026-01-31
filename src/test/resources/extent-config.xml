@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extentreports>
+  <configuration>
+    <!-- report theme -->
+    <theme>dark</theme>
+    <!-- document encoding -->
+    <encoding>UTF-8</encoding>
+    <!-- protocol for script and stylesheets -->
+    <protocol>https</protocol>
+    <!-- title of the document -->
+    <documentTitle>Her Balance VM Extent Reports</documentTitle>
+    <!-- report name -->
+    <reportName>Automation Report </reportName>
+    <!-- location of charts in the test view -->
+    <testViewChartLocation>top</testViewChartLocation>
+    <!-- custom javascript -->
+    <scripts>
+      <![CDATA[
+        $(document).ready(function() {
+        });
+      ]]>
+    </scripts>
+    <!-- custom styles -->
+    <styles>
+      <![CDATA[
+        .node.level-1  ul{ display:none;} .node.level-1.active ul{display:block;}
+      ]]>
+    </styles>
+  </configuration>
+</extentreports>
