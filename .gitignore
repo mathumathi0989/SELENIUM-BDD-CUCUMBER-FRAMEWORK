@@ -1,9 +1,15 @@
+#======Maven=====
+.mvn/
+
+
 # ===== Build output =====
 target/
 build/
 out/
 
 # ===== Test reports =====
+ExtentReport/
+PDFReport/
 reports/
 test-output/
 allure-results/
