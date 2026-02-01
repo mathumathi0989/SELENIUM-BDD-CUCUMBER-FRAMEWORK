@@ -1,13 +1,24 @@
 pipeline {
     agent any
+    
+     tools {
+        maven 'Maven'
+    }
 
     environment {
         TEAM_NAME = 'VM_Her_Balance_Trial'
         TEAM_EMAILS = 'vijayashree80sv@gmail.com, mathumathi.b@gmail.com'
         MAX_RETRIES = 3
     }
-
+    
+   
     stages {
+		
+		stage('Verify Maven') {
+		    steps {
+		        bat 'mvn -version'
+		    }
+		}
 
         stage('Checkout Code') {
             steps {
@@ -18,7 +29,7 @@ pipeline {
         stage('Run Main Tests') {
             steps {
                 echo "Running main TestRunner"
-                sh 'mvn clean test -Dtest=testRunner.TestRunner'
+                bat 'mvn clean test -Dtest=testRunner.TestRunner'
             }
         }
 
@@ -29,7 +40,7 @@ pipeline {
 		                    for (int retryCount = 1; retryCount <= maxRetries; retryCount++) {
 		                        if (fileExists('target/failed_scenarios.txt') && readFile('target/failed_scenarios.txt').trim()) {
 		                            echo "Retry attempt #${retryCount} for failed scenarios..."
-		                            sh "mvn test -Dtest=testRunner.RetryFailedScenariosRunner"
+		                            bat 'mvn test -Dtest=testRunner.RetryFailedScenariosRunner'
 		                        } else {
 		                            echo "No failed scenarios left. Exiting retries."
 		                            break
@@ -47,14 +58,14 @@ pipeline {
         }
 
         failure {
-            echo "Sending email notification to the team..."
-            mail to: "${TEAM_EMAILS}",
-                 subject: "Build Failed:",
-                 body: """Hello Team ${TEAM_NAME},
+		    emailext(
+		        subject: "BUILD FAILED - ${TEAM_NAME}",
+		        body: """<p>Hello Team ${TEAM_NAME},</p>
+		                 <p>The Jenkins build has <b>FAILED</b>.</p>""",
+		        to: "${TEAM_EMAILS}"
+		    )
+		}
 
-								The Jenkins build has failed.
-							"""
-        }
 
         success {
 			echo " BUILD SUCCESSFUL - ${TEAM_NAME}"
