@@ -35,18 +35,9 @@ public class LoginPage extends BasePage {
 	
 	//----------------------------------Methods---------------------------------------------------
 	
-	
-	public void enterUsername(String name) {
-		username.sendKeys(name);
-	}
-	
-	public void enterPassword(String name) {
-		password.sendKeys(name);
-	}
-	
 	public void enterUsernameAndPwd(String name, String pwd) {
-		enterUsername(name);
-		enterPassword(pwd);			
+		username.sendKeys(name);
+		password.sendKeys(pwd);	
 	}
 	
 	public void clickLogin() {
@@ -54,8 +45,8 @@ public class LoginPage extends BasePage {
 	}
 	
 	public void clickLogInWithDetails(String name, String pwd) {
-		enterUsername(name);
-		enterPassword(pwd);
+		username.sendKeys(name);
+		password.sendKeys(pwd);	
 		loginBtn.click();		
 	}
 	
