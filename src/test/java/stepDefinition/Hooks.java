@@ -24,7 +24,7 @@ public class Hooks {
         this.context = context;
     }
     
-    @Before
+    @Before()
     public void setUp(Scenario scenario) {
         LoggerLoad.info("Starting scenario: " + scenario.getName());
         
@@ -57,12 +57,12 @@ public class Hooks {
     	//From Command line
          String browser = System.getProperty("browser");
          
-         //Next try from testng.xml
+         //To take from testng.xml
          if (browser == null || browser.trim().isEmpty()) {
              browser = getTestNGParameter("browser");
          }
         
-        //Next try from config.properties
+        //To take from config.properties
         if (browser == null || browser.trim().isEmpty()) {
                browser = config.getString("browser");
             }
