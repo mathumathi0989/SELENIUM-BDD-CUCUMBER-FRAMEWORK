@@ -1,11 +1,33 @@
 package pageObjects;
 
+import org.openqa.selenium.WebDriver;
+
 import lombok.Data;
 
 @Data
-public class loginPage {
+public class loginPage extends basePage {
 	
 	
-	private String number;
+	public loginPage(WebDriver driver) {
+		super(driver);
+		
+	}
+	
+	
+	//-------------------------------- WebElements --------------------------------------------
+	
+	
+	
+	
+	
+	
+	
+	//----------------------------------Methods---------------------------------------------------
+	
+	
+	
+	
+	
+	
 
 }
