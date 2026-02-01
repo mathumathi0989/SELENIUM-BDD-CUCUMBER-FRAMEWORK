@@ -1,17 +1,15 @@
 package testContext;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Properties;
 import java.util.ResourceBundle;
-
 import org.openqa.selenium.WebDriver;
-
 import driverSetup.DriverFactory;
+import lombok.Data;
+import pageObjects.LoginPage;
 
+@Data
 public class TestContextSetup {
-
-	
+    private LoginPage loginPage ;
+   
 	public static ResourceBundle config = ResourceBundle.getBundle("config");
 
     public WebDriver getDriver() {
@@ -28,6 +26,10 @@ public class TestContextSetup {
 
     public String getPropPassword() {
         return config.getString("Password");
+    }
+    
+    public LoginPage getLoginPage() {
+    	return (loginPage==null)? loginPage = new LoginPage(getDriver()):loginPage;
     }
     
 	

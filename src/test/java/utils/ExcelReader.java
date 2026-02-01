@@ -22,7 +22,7 @@ public class ExcelReader {
 	
 	 public static Map<String, String> getRowData(String sheetName, String scenarioName) throws IOException {
 	    
-		 String filePath = System.getProperty("user.dir") + "\\testData\\testData.xlsx";
+		 String filePath = System.getProperty("user.dir") + "\\src\\test\\resources\\testData\\HerBalanceDataSheetVM.xlsx";
 		 
 	        FileInputStream file = new FileInputStream(new File(filePath));
 	        Workbook workbook = new XSSFWorkbook(file);
