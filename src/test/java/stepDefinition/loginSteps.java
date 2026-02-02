@@ -50,7 +50,7 @@ public class loginSteps {
 	
 	
 	@Then("verify the appropriate result displayed for {string}")
-	public void verify_the_appropriate_result_displayed_for(String scenario) throws InterruptedException {
+	public void verify_the_appropriate_result_displayed_for(String scenario) {
 		   boolean displayed;
 		   
 		   switch(scenario) {
@@ -74,8 +74,7 @@ public class loginSteps {
 			      Assert.fail("Invalid scenario value: " + scenario);
 		    }
 		   
-		   Thread.sleep(4000);
-		   
+		   	   
 	    
 	   }
 
