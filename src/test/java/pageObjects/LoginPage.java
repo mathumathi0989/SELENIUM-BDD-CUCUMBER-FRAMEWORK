@@ -70,14 +70,17 @@ public class LoginPage extends BasePage {
 	}
 	
 	public boolean loginFailedMsgDisplay() {
+		webElementVisibleWait(failedLoginMsg,10);
 		return failedLoginMsg.isDisplayed();
 	}
 	
 	public boolean emailReqErrMsgDisplay() {
+		webElementVisibleWait(emailReqErrorMsg,10);
 		return emailReqErrorMsg.isDisplayed();
 	}
 	
 	public boolean pwdReqErrMsgDisplay() {
+		webElementVisibleWait(pwdReqErrorMsg,10);
 		return pwdReqErrorMsg.isDisplayed();
 	}	
 	
