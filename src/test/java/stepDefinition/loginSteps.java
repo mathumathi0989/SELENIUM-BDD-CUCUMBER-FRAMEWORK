@@ -35,10 +35,13 @@ public class loginSteps {
 	   if (mapData == null) {
 	        throw new RuntimeException("No data found in Excel for scenario: " + scenario);
 	    }
-
-	    loginPage.enterUsernameAndPwd(mapData.get("username"), mapData.get("password"));	    
+		   if(scenario.equalsIgnoreCase("valid")) {
+			   loginPage.enterUsernameAndPwd(context.getPropUsername(),context.getPropPassword());
+		   }else {
+			   loginPage.enterUsernameAndPwd(mapData.get("username"), mapData.get("password"));
+			   }	    
 	  
-	}	
+		}	
 	
 	@When("click the Login button")
 	public void click_the_login_button() {
