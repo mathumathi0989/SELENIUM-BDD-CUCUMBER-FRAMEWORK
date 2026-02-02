@@ -39,9 +39,9 @@ public class loginSteps {
 			   loginPage.enterUsernameAndPwd(context.getPropUsername(),context.getPropPassword());
 		   }else {
 			   loginPage.enterUsernameAndPwd(mapData.get("username"), mapData.get("password"));
-			   }	    
-	  
+			   }	    	  
 		}	
+	
 	
 	@When("click the Login button")
 	public void click_the_login_button() {
@@ -49,15 +49,43 @@ public class loginSteps {
 	}
 	
 	
-	@Then("verify the appropriate result displayed for {string}>")
-	public void verify_the_appropriate_result_displayed_for(String scenario) {
-		   boolean displayed = loginPage.dashboardPageDisplay();
+	@Then("verify the appropriate result displayed for {string}")
+	public void verify_the_appropriate_result_displayed_for(String scenario) throws InterruptedException {
+		   boolean displayed;
+		   
+		   switch(scenario) {
+		   case "valid": 
+			     displayed = loginPage.loginSuccessMsgDisplay();
+				  Assert.assertTrue(displayed); break;
+		  case "invalidUsername":
+		  case "invalidPwd":
+		   	  	  displayed = loginPage.loginFailedMsgDisplay(); 
+				  Assert.assertTrue(displayed); break;
+	      case "withoutUsername":
+		    	  displayed = loginPage.emailReqErrMsgDisplay();
+		    	  Assert.assertTrue(displayed); break;
+	      case "withoutPwd":
+			  	  displayed = loginPage.pwdReqErrMsgDisplay(); 
+				  Assert.assertTrue(displayed); break;
+          case "withoutBoth":
+			      Assert.assertTrue((loginPage.emailReqErrMsgDisplay()&&loginPage.pwdReqErrMsgDisplay()),"Email Required and Password Required Message is not displayed..");
+			      break;
+		  default:
+			      Assert.fail("Invalid scenario value: " + scenario);
+		    }
+		   
+		   Thread.sleep(4000);
+		   
+	    
+	   }
 
-//		    if(scenario.equalsIgnoreCase("valid")) {
-//		        Assert.assertTrue(displayed);
-//		    } else {
-//		        Assert.assertFalse(displayed);
-//		    }
-	}
+
+
+	
+	
+	
 
 }
+	
+
+

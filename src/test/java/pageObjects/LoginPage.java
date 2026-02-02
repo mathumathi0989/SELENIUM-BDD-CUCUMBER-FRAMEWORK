@@ -27,6 +27,18 @@ public class LoginPage extends BasePage {
 	@FindBy (xpath ="//button[contains(text(),'LogIn')]")
 	private WebElement loginBtn;
 	
+	@FindBy (xpath ="//div[contains(text(),'Logged in successfully')]")
+	private WebElement successLoginMsg;
+	
+	@FindBy (xpath ="//div[contains(text(),'Login Failed')]")
+	private WebElement failedLoginMsg;
+	
+	@FindBy (xpath ="//p[contains(text(),'Email is required')]")
+	private WebElement emailReqErrorMsg;
+	
+	@FindBy (xpath ="//p[contains(text(),'Password is required')]")
+	private WebElement pwdReqErrorMsg;
+	
 	@FindBy (xpath ="//h1[contains(text(),'Free Plan Dashboard')]")
 	private WebElement dashboardPage;
 	
@@ -45,10 +57,30 @@ public class LoginPage extends BasePage {
 	}
 	
 	public void clickLogInWithDetails(String name, String pwd) {
+		username.clear();
 		username.sendKeys(name);
+		password.clear();
 		password.sendKeys(pwd);	
 		loginBtn.click();		
 	}
+	
+	public boolean loginSuccessMsgDisplay() {
+		webElementVisibleWait(successLoginMsg,10);
+		return successLoginMsg.isDisplayed();
+	}
+	
+	public boolean loginFailedMsgDisplay() {
+		return failedLoginMsg.isDisplayed();
+	}
+	
+	public boolean emailReqErrMsgDisplay() {
+		return emailReqErrorMsg.isDisplayed();
+	}
+	
+	public boolean pwdReqErrMsgDisplay() {
+		return pwdReqErrorMsg.isDisplayed();
+	}	
+	
 	
 	public boolean dashboardPageDisplay() {
 		return dashboardPage.isDisplayed();
